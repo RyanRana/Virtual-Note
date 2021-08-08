@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html>
+  <body>
+  <center>
+    <div id="case">
+  <h1>Virtual Note</h1>
+  <h3>Have you ever wondered how music is actually created? Have you ever wanted to create music, easily? Virtual Note is an online virtual staff and piano that allows you to create small bit of music at the tip of your fingertips. If you don't know how a staff and notes work in music check out an article I found down below, or if you just want a refresher. If you want to know how to use this site, check out the post. Alright then, happy composing! I can't wait to see what you make! If you like what you did screen shot your work and post it in the comments below for others to see!</h3>
+  </div>
+  <canvas id="myCanvas" width = 900 height=240></canvas>
+  </br>
+  <ul id="parent">
+  <select id="select-style">
+  <option value="e1">E</option>
+  <option value="f">F</option>
+  <option value="g">G</option>
+  <option value="a">A</option>
+  <option value="b">B</option>
+  <option value="c">C</option>
+  <option value="d">D</option>
+  <option value="e2">E</option>
+  <option value="na">Rest</option>
+  </select>
+  <button id = "add" onclick="Note()">+♩</button>
+  
+ 
+  <button style="font-size:35px" onclick="play()"> Play</button>
+  <button style="font-size:35px" onclick="del()">reset</button>
+  </ul>
+  <div class="slidecontainer">
+  <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+  <p>Volume: <span id="demo"></span></p>
+</div>
+
+  </center>
+  
+  <audio id="sound0">
+        <source src="sounds/doLow.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+      <audio id="sound1">
+        <source src="sounds/re.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+      <audio id="sound2">
+        <source src="sounds/mi.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+      <audio id="sound3">
+        <source src="sounds/fa.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+      <audio id="sound4">
+        <source src="sounds/so.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+      <audio id="sound5">
+        <source src="sounds/si.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+      <audio id="sound6">
+        <source src="sounds/la.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+      <audio id="sound7">
+        <source src="sounds/doHigh.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+      </br></br></br></br>
+      <h4>The following is an article from allaboutmusictheory.com - How The Staff Works</h4>
+      
+        <p>
+A normal staff has 5 horizontal parallel lines, spaced evenly, that run across the page.  In between these 5 lines are 4 spaces. These spaces aren’t just useless, empty areas; they’re just as much an important part of the staff as the lines. So this is the basic working area we have when writing music. A note can be placed on either a line or a space on the staff.
+</br></br>
+A musical staff
+Each line or space on the staff corresponds with a particular musical note. For instance, a particular line or space could represent the note C4, or A5, or E2, etc. (See Organizing Note Names for a refresher on how to name notes by their octave.)
+</br></br>
+Notes shown on lines and spaces of the staff
+Up and Down
+The vertical “dimension” of the staff (in other words, how high or low a note is placed) represents pitch:
+</br></br>
+The higher the line or space is on the staff, the higher the note it represents. The lower the line or space, the lower the note it represents. No tricks here.
+</br></br>
+The vertical dimension of the staff
+Even more convenient, the lines and spaces go in order of the musical notes they represent.  For example, let’s say a particular line represents the note C5 – the space directly above it would then represent the next note up, D5. The next line up from there would be E5. The space above that, F5. And so on. (And it works the same way going downward, each successive line or space represents the next-lowest letter name.)
+</br></br>
+
+The concept itself is really not too difficult. The hard part is memorizing which note corresponds to which line or space. But have no fear! Together, we’re going to take it step by step, until we reach our goal. All you have to do is stick with it, and you will learn how to read music.
+</br></br>
+The great thing about the musical staff is that with practice, we can (eventually) get to the point where we instantly recognize which notes we’re looking at. Great sight readers, like top-notch studio musicians, can see some sheet music for the very first time, and play it as if they’ve been playing it their whole lives (just like reading one’s native language).</p>
+  <style>
+    body{
+      background-color:indianred;
+    }
+   #case{
+      width: 800px;
+   }
+    canvas {
+            background-color: lightgoldenrodyellow;
+        }
+       button {
+            background-color: #4CAF50; /* Green */
+            border-color: #ccc;
+            border-radius: 12px;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 30px;
+            margin: 4px 2px;
+            cursor: pointer;
+            -webkit-transition-duration: 0.4s; /* Safari */
+            transition-duration: 0.4s;
+        }
+        button:hover{
+            background-color: darkgreen; /* Green */
+        }
+        #add {
+            background-color: gray; /* Green */
+            border-color: #ccc;
+            border-radius: 12px;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 30px;
+            margin: 4px 2px;
+            cursor: pointer;
+            -webkit-transition-duration: 0.4s; /* Safari */
+            transition-duration: 0.4s;
+        }
+        #add:hover{
+            background-color: lightgray; /* Green */
+        }
+    canvas{
+      border:5px solid black;
+      }
+    h1{
+      color:white;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    h3{
+      color:white;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    p{
+      color:white;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    h4{
+      color:white;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    #select-style {
+    border: 3px solid #ccc;
+    width: 120px;
+    height:70px;
+    border-radius: 3px;
+    overflow: hidden;
+    background: #fafafa;
+    font-size:30px;
+}
+
+#select-style select {
+    padding: 5px 8px;
+    width: 130%;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+}
+
+#select-style select:focus {
+    outline: none;
+}
+.slidecontainer {
+  width: 100%;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 500px;
+  height: 15px;
+  border-radius: 5px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #4CAF50;
+  cursor: pointer;
+}
+  </style>
+  <script>
+    var slider = document.getElementById("myRange");
+var output = document.getElementById("demo");
+output.innerHTML = slider.value;
+
+slider.oninput = function() {
+  output.innerHTML = this.value;
+  a1 = document.getElementById("sound0")
+  a2 = document.getElementById("sound1")
+  a3 = document.getElementById("sound2")
+  a4 = document.getElementById("sound3")
+  a5 = document.getElementById("sound4")
+  a6 = document.getElementById("sound5")
+  a7 = document.getElementById("sound6")
+  a8 = document.getElementById("sound7")
+  a1.volume = this.value/100
+  a2.volume = this.value/100
+  a3.volume = this.value/100
+  a4.volume = this.value/100
+  a5.volume = this.value/100
+  a6.volume = this.value/100
+  a7.volume = this.value/100
+  a8.volume = this.value/100
+}
+  var c = document.getElementById("myCanvas");
+  var ctx = c.getContext("2d");
+  ctx.beginPath();
+  ctx.moveTo(20, 40);
+  ctx.lineTo(880, 40);
+  ctx.moveTo(20, 80);
+  ctx.lineTo(880, 80);
+  ctx.moveTo(20, 120);
+  ctx.lineTo(880, 120);
+  ctx.moveTo(20, 160);
+  ctx.lineTo(880, 160);
+  ctx.moveTo(20, 200);
+  ctx.lineTo(880, 200);
+  ctx.strokeStyle = "black";
+  ctx.stroke();
+  ctx.font = "80px Arial";
+  var x= 0
+  var notes =[]
+  var start=[]
+  function sleep(delay) {
+    delay =  100
+        start = new Date().getTime();
+        while (new Date().getTime() < start + delay);
+      }
+  function Note(){
+    x+=40
+    if (x == 880){
+      alert("You cannot create more music on the staff, you can reopen the site and continue or leave it as it is.")
+    }
+    var note = document.getElementById("select-style")
+    .value
+    if (note == "e1"){
+      ctx.font = "80px Arial";
+      ctx.fillText("♩",x,210);
+      var p = document.getElementById("sound0");
+      p.play()
+      notes.push("e")
+
+    }
+    if (note == "f"){
+      ctx.font = "80px Arial";
+      ctx.fillText("♩",x,190);
+      var p = document.getElementById("sound1");
+      p.play()
+      notes.push("f")
+    }  
+    if (note == "g"){
+      ctx.font = "80px Arial";
+      ctx.fillText("♩",x,170);
+      var p = document.getElementById("sound2");
+      p.play()
+      notes.push("g")
+    }      
+    if (note == "a"){
+      ctx.font = "80px Arial";
+      ctx.fillText("♩",x,150);
+      var p = document.getElementById("sound3");
+      p.play()
+      notes.push("a")
+    }
+    if (note == "b"){
+      ctx.font = "80px Arial";
+      ctx.fillText("♩",x,130);
+      var p = document.getElementById("sound4");
+      p.play()
+      notes.push("b")
+    }  
+    if (note == "c"){
+      ctx.font = "80px Arial";
+      ctx.fillText("♩",x,110);
+      var p = document.getElementById("sound5");
+      p.play()
+      notes.push("c")
+    }
+    if (note == "d"){
+      ctx.font = "80px Arial";
+      ctx.fillText("♩",x,90);
+      var p = document.getElementById("sound6");
+      p.play()
+      notes.push("d")
+    }
+    if (note == "e2"){
+      ctx.font = "80px Arial";
+      ctx.fillText("♩",x,70);
+      var p = document.getElementById("sound7");
+      p.play()
+      notes.push("E")
+    }
+    if (note == "na"){
+      ctx.font = "80px Arial";
+      ctx.fillText("-",x,70);
+      sleep(0.5);
+      notes.push("r")
+        
+    }    
+  }
+  var p;
+  var i;
+  function play(){
+   
+  
+  for (i = 0; i <= notes.length; i++) {
+    
+    //alert(notes[i])
+    //sleep(100) 
+    if (notes[i] == "e"){
+      document.getElementById("sound0").play();
+      
+      sleep(100);
+    }
+    if (notes[i] == "f"){
+      p = document.getElementById("sound1");
+      p.play();
+      sleep(100);
+    }
+    if (notes[i] == "g"){
+      p = document.getElementById("sound2");
+      p.play();
+      sleep(100);
+    }
+    if (notes[i] == "a"){
+       p = document.getElementById("sound3");
+      p.play();
+      sleep(100);
+    }
+    if (notes[i] == "b"){
+      p = document.getElementById("sound4");
+      p.play();
+      sleep(100);
+    }
+    if (notes[i] == "c"){
+      p = document.getElementById("sound5");
+      p.play();
+      sleep(100);
+    }
+    if (notes[i] == "d"){
+      var p = document.getElementById("sound6");
+     p.play();
+      sleep(100);
+    }
+    if (notes[i] == "e"){
+       p = document.getElementById("sound7");
+     p.play();
+      sleep(100);
+    }
+    if (notes[i] == "r"){
+      sleep(250);
+    }
+    
+}
+  }
+  function del(){
+       last = notes[notes.length-1]
+       ctx.clearRect(0,0,900,240)
+       ctx.beginPath();
+  ctx.moveTo(20, 40);
+  ctx.lineTo(880, 40);
+  ctx.moveTo(20, 80);
+  ctx.lineTo(880, 80);
+  ctx.moveTo(20, 120);
+  ctx.lineTo(880, 120);
+  ctx.moveTo(20, 160);
+  ctx.lineTo(880, 160);
+  ctx.moveTo(20, 200);
+  ctx.lineTo(880, 200);
+  ctx.strokeStyle = "black";
+  ctx.stroke();
+  ctx.font = "80px Arial";
+   x= 0
+notes =[]
+      }
+  window.addEventListener('keydown', function (e) {
+            e = e || window.event;
+            if (e.keyCode == '69') {
+              x+=40
+               ctx.font = "80px Arial";
+      ctx.fillText("♩",x,210);
+      var p = document.getElementById("sound0");
+      p.play() 
+      notes.push("e")
+            }
+            if (e.keyCode == '70') {
+              x+=40
+                ctx.font = "80px Arial";
+      ctx.fillText("♩",x,190);
+      var p = document.getElementById("sound1");
+      p.play()
+      notes.push("f")
+            }
+            if (e.keyCode == '71') {
+              x+=40
+                ctx.font = "80px Arial";
+      ctx.fillText("♩",x,170);
+      var p = document.getElementById("sound2");
+      p.play()
+      notes.push("g")
+            }
+            if (e.keyCode == '65') {
+              x+=40
+                ctx.font = "80px Arial";
+      ctx.fillText("♩",x,150);
+      var p = document.getElementById("sound3");
+      p.play()
+      notes.push("a")
+            }
+            if (e.keyCode == '66') {
+              x+=40
+               ctx.font = "80px Arial";
+      ctx.fillText("♩",x,130);
+      var p = document.getElementById("sound4");
+      p.play()
+      notes.push("b")
+            }
+            if (e.keyCode == '67') {
+              x+=40
+               ctx.font = "80px Arial";
+      ctx.fillText("♩",x,110);
+      var p = document.getElementById("sound5");
+      p.play()
+      notes.push("c")
+            }
+            if (e.keyCode == '68') {
+              x+=40
+               ctx.font = "80px Arial";
+      ctx.fillText("♩",x,90);
+      var p = document.getElementById("sound6");
+      p.play()
+      notes.push("d")
+            }
+            if (e.keyCode == '32') {
+              x+=40
+               ctx.font = "80px Arial";
+      ctx.fillText("♩",x,70);
+      var p = document.getElementById("sound7");
+      p.play()
+      notes.push("E")
+            }
+            if (e.keyCode == '82') {
+              x+=40
+               ctx.font = "80px Arial";
+      ctx.fillText("-",x,70);
+      sleep(0.5);
+      notes.push("r")
+            }
+        })
+      
+  </script>
+  </body>
+</html>
